@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Team;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class TeamController extends Controller
 {
@@ -14,7 +15,7 @@ class TeamController extends Controller
      */
     public function index()
     {
-        $teams = Team::paginate(15);
+        $teams = Team::all();
         return view('team.index', compact('teams'));
     }
 
@@ -36,7 +37,23 @@ class TeamController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $attributes=request()->validate([
+            'first_name'=>'required|max:255',
+            'last_name'=>'required|max:255',
+            'address'=>'required',
+            'phone'=>'required',
+            'gender'=>'required',
+            'jobTitle'=>'required',
+            'sallary'=>'required',
+            'dateofHire'=>'required',
+            'email'=>['required', Rule::unique('teams','email')],
+            'password'=>'required',
+            'image'=>'required|image|max:2048|'
+           ]);
+           $attributes['image'] = request()->file('image')->store('uploads');
+           //  dd($attributes);
+            Team::create($attributes);
+            return redirect('team')->with('success', 'successfully added');
     }
 
     /**
@@ -56,9 +73,9 @@ class TeamController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Team $team)
     {
-        //
+        return view('team/edit',['team'=>$team]);
     }
 
     /**

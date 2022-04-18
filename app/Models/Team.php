@@ -13,6 +13,7 @@ class Team extends Model
         'last_name',
         'phone',
         'image',
+        'address',
         'gender',
         'jobTitle',
         'sallary',
