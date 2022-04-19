@@ -7,7 +7,7 @@
         <div class="row mb-3">
             <x-form.input name="first_name" :value="old('first_name',$team->first_name)"/>
             <x-form.input name="last_name" :value="old('last_name',$team->last_name)"/>
-            <x-form.input name="phone" :value="old('phone',$team->phone_name)"/>
+            <x-form.input type="" name="phone" :value="old('phone',$team->phone)"/>
             <x-form.input name="jobTitle" :value="old('jobTitle',$team->jobTitle)"/>
             <x-form.input name="sallary" :value="old('sallary',$team->sallary)"/>
             <x-form.input name="sallaryTerm" :value="old('sallaryTerm',$team->sallaryTerm)"/>
@@ -24,7 +24,7 @@
             </div>
             <x-form.input name="email" type="email" :value="old('email',$team->email)"/>
             <x-form.input name="image" type="file" :value="old('image',$team->image)"/>
-            <x-form.textarea  name="address">{{old('address',$team->address)}}</x-form.textarea>
+            <x-form.textarea  name="address">{{$team->address}}</x-form.textarea>
             <x-form.input type="password" name="password"  :value="old('password',$team->password)"/>
            <div class="col-md-6 mt-3">
             <div class="mb-3 mb-md-0">
