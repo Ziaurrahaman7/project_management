@@ -85,9 +85,26 @@ class TeamController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Team $team)
     {
-        //
+        $attributes=request()->validate([
+            'first_name'=>'required|max:255',
+            'last_name'=>'required|max:255',
+            'address'=>'required',
+            'phone'=>'required',
+            'gender'=>'required',
+            'jobTitle'=>'required',
+            'sallary'=>'required',
+            'dateofHire'=>'required',
+            'email'=>['required', Rule::unique('teams','email')->ignore($team->id)],
+            'password'=>'required',
+            'image'=>'image|max:2048|'
+           ]);
+           if(isset($attributes['image'])){
+           $attributes['image'] = request()->file('image')->store('uploads');
+           }
+           $team->update($attributes);
+           return redirect('team')->with('success', 'Update successfuly done');
     }
 
     /**
@@ -96,8 +113,9 @@ class TeamController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Team $team)
     {
-        //
+       $team->delete();
+       return back()->with('success', 'Delete successfully');
     }
 }

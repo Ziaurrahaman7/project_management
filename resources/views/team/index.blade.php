@@ -13,7 +13,14 @@
                             <td>{{$team->jobTitle}}</td>
                             <td>{{$team->email}}</td>
                             <td>{{$team->phone}}</td>
-                            <td> <a href="/team/{{$team->id}}/edit/" target="_blank" rel="noopener noreferrer">Edit</a> | Delete</td>
+                            <td> <a href="/team/{{$team->id}}/edit/" target="_blank" rel="noopener noreferrer">Edit</a> | 
+                                
+                               <form action="/team/{{$team->id}}" method="post">
+                                @csrf
+                                @method('delete')
+                                <button> Delete</button>
+                            </form> 
+                               </td>
                         </tr>
                         @endforeach
 </x-table>

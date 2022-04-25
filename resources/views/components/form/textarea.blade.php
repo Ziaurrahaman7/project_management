@@ -1,15 +1,16 @@
 @props(['name', 'type'=>'text'])
 <div class="col-md-12 mt-3">
-    <div class="form-floating  mb-3 mb-md-0">
+  <div class="form-group">
+    <x-form.label for="{{$name}}" name="{{$name}}"/>
       <textarea cols="12"
        id="{{$name}}" 
        name="{{$name}}"
         type="{{$type}}" 
-         rows="20"
+         rows="10"
           class="form-control"
           >
-          {{$attributes(['value'=>old($name)])}}
+          {{$attributes}}
+          {{$slot ?? old($name)}}
         </textarea>
-        <x-form.label for="{{$name}}" name="{{$name}}"/>
     </div>
 </div>
