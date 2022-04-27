@@ -53,7 +53,7 @@ class ClientController extends Controller
            'shipping_city'=>'required',
            'project_type'=>'required',
         ]);
-        dd($attributes);
+        // dd($attributes);
         $attributes['image'] = request()->file('image')->store('uploads');
         //  dd($attributes);
          Client::create($attributes);
