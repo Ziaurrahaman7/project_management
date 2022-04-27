@@ -7,21 +7,32 @@
         <strong>{{ $message }}</strong>
 </div>
 @endif
+<thead>
+    <tr>
+        <th>Name</th>
+        <th>Position</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Action</th>
+    </tr>
+</thead>
+<tbody>
     @foreach ($teams as  $team)
-                        <tr>
-                            <td>{{ucwords($team->first_name.".".$team->first_name)}}</td>
-                            <td>{{$team->jobTitle}}</td>
-                            <td>{{$team->email}}</td>
-                            <td>{{$team->phone}}</td>
-                            <td> <a href="/team/{{$team->id}}/edit/" target="_blank" rel="noopener noreferrer">Edit</a> | 
-                                
-                               <form action="/team/{{$team->id}}" method="post">
-                                @csrf
-                                @method('delete')
-                                <button> Delete</button>
-                            </form> 
-                               </td>
-                        </tr>
-                        @endforeach
+        <tr>
+            <td>{{ucwords($team->first_name.".".$team->first_name)}}</td>
+            <td>{{$team->jobTitle}}</td>
+            <td>{{$team->email}}</td>
+            <td>{{$team->phone}}</td>
+            <td> <a href="/team/{{$team->id}}/edit/" target="_blank" rel="noopener noreferrer">Edit</a> | 
+                
+                <form action="/team/{{$team->id}}" method="post">
+                @csrf
+                @method('delete')
+                <button> Delete</button>
+            </form> 
+                </td>
+        </tr>
+        @endforeach
+</tbody>
 </x-table>
 @endsection

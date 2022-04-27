@@ -15,25 +15,7 @@
         <div class="card mb-4">
             <div class="card-body">
                 <table id="datatablesSimple">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tfoot>
-                        <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Action</th>
-                        </tr>
-                    </tfoot>
-                    <tbody>
+                    
                         {{$slot}}
                     </tbody>
                 </table>
