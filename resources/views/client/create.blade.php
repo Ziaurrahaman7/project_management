@@ -8,6 +8,7 @@
             <x-form.input name="company_name"/>
             <x-form.input name="first_name"/>
             <x-form.input name="last_name"/>
+            <x-form.input name="email"/>
             <x-form.input name="image" type="file"/>
             <x-form.textarea  name="details"/>
             <x-form.input name="tag"/>
@@ -27,12 +28,11 @@
             <x-form.input name="shipping_website"/>
             <x-form.input name="shipping_city"/>
             <x-form.input name="lastproject"/>
-            <x-form.input name="shipping_website"/>
             <x-form.textarea  name="comment"/>
             <div class="col-md-6  mt-3">
                 <label for="role">Project_type</label>
                 <div class="form-group">
-                 <select id="role" class="form-select">
+                 <select name="project_type" id="role" class="form-select">
                      <option value="1">Web Design</option>
                      <option value="2">Web Development</option>
                      <option value="3">App Developer</option>

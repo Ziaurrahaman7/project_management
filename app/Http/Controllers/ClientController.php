@@ -35,27 +35,38 @@ class ClientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Client $client)
+    public function store()
     {
+
         $attributes = request()->validate([
-           'company_name'=> 'required',
-           'first_name'=> 'required',
-           'last_name'=> 'required',
-           'image'=> 'image',
-           'email'=> ['required',Rule::unique('client','email')],
-           'billing_zipcode'=>'required',
-           'billing_country'=>'required',
-           'billing_telephone'=>'required',
-           'billing_city'=>'required',
-           'shipping_zipcode'=>'required',
-           'shipping_country'=>'required',
-           'shipping_telephone'=>'required',
-           'shipping_city'=>'required',
-           'project_type'=>'required',
+            'company_name'=>'required',
+            'first_name'=>'required',
+            'email'=>'required',
+            'billing_zipcode'=>'required',
+            'billing_country'=>'required',
+            'billing_telephone'=>'required',
+            'billing_city'=>'required',
+            'shipping_zipcode'=>'required',
+            'shipping_country'=>'required',
+            'shipping_telephone'=>'required',
+            'shipping_city'=>'required',
+            'project_type'=>'required',
+            'details'=>'required',
+            'tag'=>['nullable','string'],
+            'billing_streat'=>'nullable|string',
+            'billing_state'=>'nullable|string',
+            'billing_website'=>'nullable|string',
+            'tax_number'=>'nullable|string',
+            'shipping_streat'=>'nullable|string',
+            'shipping_state'=>'nullable|string',
+            'shipping_website'=>'nullable|string',
+            'lastproject'=>'nullable|string',
+            'comment'=>'nullable|string',
+            'image'=>'required|image'
+
         ]);
         // dd($attributes);
-        $attributes['image'] = request()->file('image')->store('uploads');
-        //  dd($attributes);
+        $attributes['image'] = request()->file('image')->store('uploads');;
          Client::create($attributes);
          return redirect('client')->with('success', 'successfully added');
     }
