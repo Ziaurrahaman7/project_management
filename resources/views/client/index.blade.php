@@ -22,8 +22,7 @@
     @foreach ($clients as  $client)
         <tr>
             <td>{{ucwords($client->company_name)}}</td>
-            <td>{{ucwords($client->first_name.".".$client->first_name)}}</td>
-            <td><img src="https://picsum.photos/200/{{$client->id}}.jpg" width="50px;" height="50px;"></td>
+            <td> <img style="width:80px; height:80px" src="{{asset($client->image)}}"></td>
             <td>{{$client->email}}</td>
             <td>{{$client->shipping_telephone}}</td>
             <td>{{$client->project_type}}</td>

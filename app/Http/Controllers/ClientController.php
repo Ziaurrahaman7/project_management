@@ -88,9 +88,9 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Client $client)
     {
-        //
+        return view('client/edit',['client'=>$client]);
     }
 
     /**
@@ -100,9 +100,41 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Client $client)
     {
-        //
+        $attributes = request()->validate([
+            'company_name'=>'required',
+            'first_name'=>'required',
+            'email'=>'required',
+            'billing_zipcode'=>'required',
+            'billing_country'=>'required',
+            'billing_telephone'=>'required',
+            'billing_city'=>'required',
+            'shipping_zipcode'=>'required',
+            'shipping_country'=>'required',
+            'shipping_telephone'=>'required',
+            'shipping_city'=>'required',
+            'project_type'=>'required',
+            'details'=>'required',
+            'tag'=>'nullable|string',
+            'billing_streat'=>'nullable|string',
+            'billing_state'=>'nullable|string',
+            'billing_website'=>'nullable|string',
+            'tax_number'=>'nullable|string',
+            'shipping_streat'=>'nullable|string',
+            'shipping_state'=>'nullable|string',
+            'shipping_website'=>'nullable|string',
+            'lastproject'=>'nullable|string',
+            'comment'=>'nullable|string',
+            'image'=>'image'
+
+        ]);
+        // dd($attributes);
+        if(isset($attributes['image'])){
+            $attributes['image'] = request()->file('image')->store('uploads');
+            }
+        $client->update($attributes);
+         return redirect('client')->with('success', 'successfully added');
     }
 
     /**
@@ -111,8 +143,9 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Client $client)
     {
-        //
+        $client->delete();
+       return back()->with('success', 'Delete successfully');
     }
 }
