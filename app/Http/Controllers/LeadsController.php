@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Lead;
 use Illuminate\Http\Request;
 
 class LeadsController extends Controller
@@ -13,7 +14,8 @@ class LeadsController extends Controller
      */
     public function index()
     {
-        return "mmm";
+        $leads = Lead::all();
+        return view('lead.index', compact('leads'));
     }
 
     /**
@@ -23,7 +25,7 @@ class LeadsController extends Controller
      */
     public function create()
     {
-        //
+        return view('lead.create');
     }
 
     /**
@@ -32,9 +34,17 @@ class LeadsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
+        $attributes=request()->validate([
+            'title'=>'required',
+            'leadValue'=>'required',
+            'assigned'=>'required',
+            'status'=>'required',
+            'targetDate'=>'required',
+        ]);
+        Lead::create($attributes);
+        return redirect('lead')->with('success', 'successfully added');
     }
 
     /**

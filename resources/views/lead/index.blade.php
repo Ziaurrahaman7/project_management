@@ -1,6 +1,6 @@
 @extends('master')
 @section('body')
-<x-table link="/ /create" name="Add Lead" title="Lead">
+<x-table link="lead/create" name="Add lead" title="lead">
     @if ($message = Session::get('success'))
 <div class="alert alert-success alert-block">
 	<button type="button" class="close" data-dismiss="alert">×</button>	
@@ -21,16 +21,18 @@
     </tr>
 </thead>
 <tbody>
-    @foreach ($Leads as  $Lead)
+    @foreach ($leads as  $lead)
         <tr>
-            <td>{{ucwords($Lead->title)}}</td>
-            <td>{{ucwords($Lead->status)}}</td>
-            <td>{{$Lead->email}}</td>
-            <td>{{$Lead->shipping_telephone}}</td>
-            <td>{{$Lead->project_type}}</td>
-            <td> <a href="/Lead/{{$Lead->id}}/edit/" target="_blank" rel="noopener noreferrer">Edit</a> | 
-                
-                <form action="/Lead/{{$Lead->id}}" method="post">
+            <td>{{ucwords($lead->title)}}</td>
+            <td>{{ucwords($lead->status)}}</td>
+            <td></td>
+            <td>{{$lead->email}}</td>
+            <td>{{$lead->created_at}}</td>
+            <td>{{$lead->lastContacted}}</td>
+            <td>{{$lead->contentType}}</td>
+            <td>{{$lead->targetDate}}</td>
+            <td> <a href="/lead/{{$lead->id}}/edit/" target="_blank" rel="noopener noreferrer">Edit</a> |   
+            <form action="/lead/{{$lead->id}}" method="post">
                 @csrf
                 @method('delete')
                 <button> Delete</button>
