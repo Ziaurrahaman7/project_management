@@ -25,13 +25,13 @@
         <tr>
             <td>{{ucwords($lead->title)}}</td>
             <td>{{ucwords($lead->status)}}</td>
-            <td></td>
+            <td>{{$lead->phone}}</td>
             <td>{{$lead->email}}</td>
             <td>{{$lead->created_at}}</td>
             <td>{{$lead->lastContacted}}</td>
             <td>{{$lead->contentType}}</td>
             <td>{{$lead->targetDate}}</td>
-            <td> <a href="/lead/{{$lead->id}}/edit/" target="_blank" rel="noopener noreferrer">Edit</a> |   
+            <td><a href="/lead/{{$lead->id}}" target="_blank" rel="noopener noreferrer">View</a> | <a href="/lead/{{$lead->id}}/edit/" target="_blank" rel="noopener noreferrer">Edit</a> |   
             <form action="/lead/{{$lead->id}}" method="post">
                 @csrf
                 @method('delete')

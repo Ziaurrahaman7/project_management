@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('email')->nullable();
+            $table->integer('phone')->nullable();
             $table->integer('leadValue');
             $table->string('assigned');
             $table->string('status');

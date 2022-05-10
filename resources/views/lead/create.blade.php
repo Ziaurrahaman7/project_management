@@ -6,15 +6,16 @@
         @csrf
         <div class="row mb-3">
             <x-form.input name="title"/>
-            <x-form.input name="email"/>
+            <x-form.input type="email" name="email"/>
+            <x-form.input name="phone"/>
             <x-form.input name="leadValue"/>
             <div class="col-md-6  mt-3">
                 <label for="role">Assigned</label>
                 <div class="form-group">
                  <select name="assigned" id="role" class="form-select">
-                     <option value="1">johone1</option>
-                     <option value="2">johone2</option>
-                     <option value="3">jhon3</option>
+                    @foreach(App\Models\Team::all() as $team)
+                    <option value="{{ $team->first_name ." ". $team->last_name }}">{{ $team->first_name ." ". $team->last_name }}</option>
+                    @endforeach
                  </select>
                 </div>
             </div>

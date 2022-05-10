@@ -38,10 +38,25 @@ class LeadsController extends Controller
     {
         $attributes=request()->validate([
             'title'=>'required',
-            'leadValue'=>'required',
+            'leadValue'=>'required|int',
             'assigned'=>'required',
             'status'=>'required',
             'targetDate'=>'required',
+            'email'=>'nullable|email',
+            'phone'=>'nullable|int',
+            'note'=>'nullable|string',
+            'source'=>'nullable|string',
+            'tag'=>'nullable|string',
+            'lastContacted'=>'nullable|string',
+            'totalBudget'=>'nullable|string',
+            'contentType'=>'nullable|string',
+            'companyName'=>'nullable|string',
+            'street'=>'nullable|string',
+            'city'=>'nullable|string',
+            'state'=>'nullable|string',
+            'zipcode'=>'nullable|string',
+            'country'=>'nullable|string',
+            'website'=>'nullable|string',
         ]);
         Lead::create($attributes);
         return redirect('lead')->with('success', 'successfully added');
@@ -53,9 +68,9 @@ class LeadsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Lead $lead)
     {
-        //
+       return view('lead.show',['lead'=>$lead]);
     }
 
     /**
@@ -64,9 +79,9 @@ class LeadsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Lead $lead)
     {
-        //
+      return view('lead.edit', ['lead'=>$lead]);
     }
 
     /**
@@ -76,9 +91,32 @@ class LeadsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Lead $lead)
     {
-        //
+        $attributes=request()->validate([
+            'title'=>'required',
+            'leadValue'=>'required|int',
+            'assigned'=>'required',
+            'status'=>'required',
+            'targetDate'=>'required',
+            'email'=>'nullable|email',
+            'phone'=>'nullable|int',
+            'note'=>'nullable|string',
+            'source'=>'nullable|string',
+            'tag'=>'nullable|string',
+            'lastContacted'=>'nullable|string',
+            'totalBudget'=>'nullable|string',
+            'contentType'=>'nullable|string',
+            'companyName'=>'nullable|string',
+            'street'=>'nullable|string',
+            'city'=>'nullable|string',
+            'state'=>'nullable|string',
+            'zipcode'=>'nullable|string',
+            'country'=>'nullable|string',
+            'website'=>'nullable|string',
+        ]);
+        $lead->update($attributes);
+        return redirect('lead')->with('success', 'successfully updated');
     }
 
     /**
@@ -87,8 +125,9 @@ class LeadsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Lead $lead)
     {
-        //
+        $lead->delete();
+        return redirect('lead')->with('success', 'successfully deleted');
     }
 }
