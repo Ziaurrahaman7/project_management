@@ -11,16 +11,31 @@
                 <div class="form-group">
                  <select name="client" id="role" class="form-select">
                     @foreach(App\Models\Client::all() as $client)
-                    <option value="{{ $team->first_name ." ". $team->last_name }}" {{old($project->assigned, $project->assigned)==$team->first_name ." ". $team->last_name ? 'selected':''}}>{{ $team->first_name ." ". $team->last_name }}</option>
+                    <option value="{{ $client->first_name ." ". $client->last_name }}" {{old($project->assigned, $project->assigned)==$client->first_name ." ". $client->last_name ? 'selected':''}}>{{ $client->first_name ." ". $client->last_name }}</option>
                     {{-- <option value="{{ $project->assigned }}" {{old($project->assigned, $project->assigned)==$project->assigned ? 'selected':''}}>johone1</option> --}}
                     @endforeach
                  </select>
                 </div>
             </div>
             <x-form.input name="title"  :value="old('title',$project->title)"/>
-            <x-form.input type="start_date" name="date" :value="old('start_date',$project->start_date)"/>
-            <x-form.input name="phone" :value="old('phone', $project->phone)"/>
-            <x-form.input name="projectValue" :value="old('projectValue', $project->projectValue)"/>
+            <x-form.input type="date" name="start_date" :value="old('start_date', $project->start_date)"/>    
+            <x-form.input type="date" name="deadline" :value="old('deadline',$project->deadline)"/>
+            <x-form.textarea  name="description">{{ old('deadline',$project->description) }}</x-form.textarea>   
+            <x-form.input name="tag" :value="old('tag', $project->tag)"/>
+                <div class="col-md-6  mt-3">
+                    <label for="role">category</label>
+                    <div class="form-group">
+                     <select name="category" id="role" class="form-select">
+                         <option value="1" {{old(1, $project->category)==$project->category ? 'selected':''}}>Web Design</option>
+                         <option value="2"  {{old(2, $project->category)==$project->category ? 'selected':''}}>Web Development</option>
+                         <option value="3"  {{old(3, $project->category)==$project->category ? 'selected':''}}>App Development</option>
+                         <option value="4" {{old(4, $project->category)==$project->category ? 'selected':''}} >E-commerce</option>
+                         <option value="5"  {{old(5, $project->category)==$project->category ? 'selected':''}}>HRM</option>
+                         <option value="6"  {{old(6, $project->category)==$project->category ? 'selected':''}}>Boot</option>
+                     </select>
+                    </div>
+                </div>
+
             <div class="col-md-6  mt-3">
                 <label for="role">Assigned</label>
                 <div class="form-group">
@@ -32,6 +47,7 @@
                  </select>
                 </div>
             </div>
+            <x-form.input name="billing" :value="old('billing', $project->billing)"/>
             <div class="col-md-6  mt-3">
                 <label for="role">Status</label>
                 <div class="form-group">
@@ -45,44 +61,31 @@
                  </select>
                 </div>
             </div>
-            <x-form.textarea  name="note"/>
             <div class="col-md-6  mt-3">
-                <label for="role">Source</label>
+                <label for="role">billing_type</label>
                 <div class="form-group">
-                 <select name="source" id="role" class="form-select">
-                     <option value="1" {{old(1, $project->source)==$project->source ? 'selected':''}}>Google</option>
-                     <option value="2" {{old(2, $project->source)==$project->source ? 'selected':''}}>Yahoo</option>
-                     <option value="3" {{old(3, $project->source)==$project->source ? 'selected':''}}>Facebook</option>
-                     <option value="4" {{old(4, $project->source)==$project->source ? 'selected':''}}>Linkadin</option>
-                     <option value="5" {{old(5, $project->source)==$project->source ? 'selected':''}}>Youtube</option>
-                     <option value="6" {{old(6, $project->source)==$project->source ? 'selected':''}}>Pinterest</option>
+                 <select name="billing_type" id="role" class="form-select">
+                     <option value="1" {{old('fixed', $project->billing_type)==$project->billing_type ? 'selected':''}}>Fixed</option>
+                     <option value="2" {{old('hourly', $project->billing_type)==$project->billing_type ? 'selected':''}}>Hourly</option>
                  </select>
                 </div>
             </div>
-            <x-form.input name="tag" :value="old('tag', $project->tag)"/>
-            <x-form.input type="date" name="lastContacted" :value="old('lastContacted', $project->lastContacted)"/>
-            <x-form.input name="totalBudget" :value="old('totalBudget', $project->totalBudget)"/>
-            <x-form.input type="date" name="targetDate" :value="old('targetDate', $project->targetDate)"/>
-            <div class="col-md-6  mt-3">
-                <label for="role">Content Type</label>
-                <div class="form-group">
-                 <select name="contentType" id="role" class="form-select">
-                     <option value="1"  {{old(1, $project->contentType)==$project->contentType ? 'selected':''}}>Blog Post</option>
-                     <option value="2"  {{old(2, $project->contentType)==$project->contentType ? 'selected':''}}>Recharce</option>
-                     <option value="3"  {{old(3, $project->contentType)==$project->contentType ? 'selected':''}}>Product Description</option>
-                     <option value="4"  {{old(4, $project->contentType)==$project->contentType ? 'selected':''}}>White Paper</option>
-                     <option value="5"  {{old(5, $project->contentType)==$project->contentType ? 'selected':''}}>Script</option>
-                 </select>
+           
+            <x-form.input type="date" name="estimated__hours" :value="old('estimated__hours', $project->estimated__hours)"/>
+            <x-form.input name="estimated_costs" :value="old('estimated_costs', $project->estimated_costs)"/>
+                <div class="col-md-6  mt-3">
+                    <label for="role">quality_level</label>
+                    <div class="form-group">
+                     <select name="billing_type" id="role" class="form-select">
+                         <option value="1" {{old('fixed', $project->quality_level)==$project->quality_level ? 'selected':''}}>Premium</option>
+                         <option value="2" {{old('hourly', $project->quality_level)==$project->quality_level ? 'selected':''}}>Standard</option>
+                     </select>
+                    </div>
                 </div>
-            </div>
-            <x-form.input name="companyName" :value="old('companyName', $project->companyName)"/>
-            <x-form.input name="street" :value="old('street', $project->street)"/>
-            <x-form.input name="city" :value="old('city', $project->city)"/>
-            <x-form.input name="state" :value="old('state', $project->state)"/>
-            <x-form.input name="zipcode" :value="old('zipcode', $project->zipcode)"/>
-            <x-form.input name="country" :value="old('country', $project->country)"/>
-            <x-form.input name="website" :value="old('website', $project->website)"/>
-        </div>
+                <x-form.input type="date" name="total_images" :value="old('total_images', $project->total_images)"/>
+                <x-form.input type="date" name="total_pages" :value="old('total_pages', $project->total_pages)"/>
+                <x-form.textarea  name="comments">{{ old('comments',$project->comments) }}</x-form.textarea>
+                </div>
         <div class="mt-4 mb-0">
            <x-form.button>Submit</x-form.button>
         </div>

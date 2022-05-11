@@ -76,9 +76,9 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Project $project)
     {
-        //
+        return view('project.edit', ['project'=>$project]);
     }
 
     /**
@@ -88,9 +88,29 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Project $project)
     {
-        //
+        $attributes=request()->validate([
+            'client'=>'required',
+            'title'=>'required',
+            'start_date'=>'required',
+            'deadline'=>'required',
+            'description'=>'required',
+            'tag'=>['nullable','string'],
+            'category'=>'required',
+            'assigned'=>'required',
+            'status'=>'required',
+            'billing'=>'required|integer',
+            'billing_type'=>['nullable','string'],
+            'estimated__hours'=>['nullable','string'],
+            'estimated_costs'=>['nullable','string'],
+            'quality_level'=>['nullable','string'],
+            'total_images'=>['nullable','string'],
+            'total_pages'=>['nullable','string'],
+            'comments'=>['nullable','string'],
+           ]);
+           $project->update($attributes);
+           return redirect('project')->with('success', 'successfully Updated');
     }
 
     /**
@@ -99,8 +119,9 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Project $project)
     {
-        //
+       $project->delete();
+       return redirect('project')->with('success', 'successfully Deleted');
     }
 }
