@@ -56,7 +56,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
-    Route::resource('team', TeamController::class);
-    Route::resource('client', ClientController::class);
-    Route::resource('lead', LeadsController::class);
+    // Route::resource('team', TeamController::class);
+    // Route::resource('client', ClientController::class);
+    // Route::resource('lead', LeadsController::class);
 });

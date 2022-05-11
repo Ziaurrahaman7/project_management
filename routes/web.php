@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TeamController;
+use App\Http\Controllers\LeadsController;
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ProjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,3 +26,9 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
+Route::middleware('auth')->group(function () {
+    Route::resource('team', TeamController::class);
+    Route::resource('client', ClientController::class);
+    Route::resource('lead', LeadsController::class);
+    Route::resource('project', ProjectController::class);
+});

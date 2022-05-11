@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -11,9 +12,10 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Project $project)
     {
-        //
+        $projects = Project::all();
+        return view('project.index', compact('projects'));
     }
 
     /**
@@ -23,7 +25,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('project.create');
     }
 
     /**
@@ -32,9 +34,29 @@ class ProjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
+       $attributes=request()->validate([
+        'client'=>'required',
+        'title'=>'required',
+        'start_date'=>'required',
+        'deadline'=>'required',
+        'description'=>'required',
+        'tag'=>['nullable','string'],
+        'category'=>'required',
+        'assigned'=>'required',
+        'status'=>'required',
+        'billing'=>'required|integer',
+        'billing_type'=>['nullable','string'],
+        'estimated__hours'=>['nullable','string'],
+        'estimated_costs'=>['nullable','string'],
+        'quality_level'=>['nullable','string'],
+        'total_images'=>['nullable','string'],
+        'total_pages'=>['nullable','string'],
+        'comments'=>['nullable','string'],
+       ]);
+       Project::create($attributes);
+       return redirect('project')->with('success', 'successfully added');
     }
 
     /**
@@ -43,9 +65,9 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Project $project)
     {
-        //
+      return view('project.show', ['project'=>$project]);
     }
 
     /**

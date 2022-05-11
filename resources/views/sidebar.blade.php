@@ -33,6 +33,10 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                    Lead
                 </a>
+                <a class="nav-link" href="/project">
+                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                   Project
+                </a>
                 <!-- <div class="collapse" id="client" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
                         <a class="nav-link" href="/client">Client List</a>
