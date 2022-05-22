@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\LeadsController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\LeaveTypeController;
 use App\Http\Controllers\ProjectController;
 
 /*
@@ -31,4 +32,5 @@ Route::middleware('auth')->group(function () {
     Route::resource('client', ClientController::class);
     Route::resource('lead', LeadsController::class);
     Route::resource('project', ProjectController::class);
+    Route::resource('leavetype', LeaveTypeController::class);
 });
