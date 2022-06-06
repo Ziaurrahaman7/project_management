@@ -66,7 +66,8 @@ class ClientController extends Controller
 
         ]);
         // dd($attributes);
-        $attributes['image'] = request()->file('image')->store('uploads');;
+        
+        $attributes['image'] = request()->file('image')->store('uploads');
          Client::create($attributes);
          return redirect('client')->with('success', 'successfully added');
     }

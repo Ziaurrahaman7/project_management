@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\Leave;
 use Illuminate\Http\Request;
 
@@ -25,7 +26,7 @@ class LeaveController extends Controller
      */
     public function create()
     {
-        //
+        return view('leave.create');
     }
 
     /**
@@ -34,9 +35,19 @@ class LeaveController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Company $company)
     {
-        //
+      $attributes = request()->validate([
+        'dasignation'=>'required',
+        'empoloyeeName'=>'required',
+        'leaveType'=>'required',
+        'startDate'=>'required',
+        'finishDate'=>'required',
+        'status'=>'required',
+        'attatchment'=>'nullable',
+        'halfDay'=>'nullable',
+        'reason'=>'nullable'
+      ]);
     }
 
     /**

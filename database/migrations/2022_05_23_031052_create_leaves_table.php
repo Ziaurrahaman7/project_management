@@ -15,8 +15,7 @@ return new class extends Migration
     {
         Schema::create('leaves', function (Blueprint $table) {
             $table->id();
-            $table->string('company');
-            $table->string('department');
+            $table->string('dasignation');
             $table->string('empoloyeeName');
             $table->string('leaveType');
             $table->date('startDate');

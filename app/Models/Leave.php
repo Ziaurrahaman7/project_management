@@ -9,8 +9,7 @@ class Leave extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'company',
-        'department',
+        'dasignation',
         'empoloyeeName',
         'leaveType',
         'startDate',

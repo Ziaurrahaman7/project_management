@@ -11,8 +11,7 @@
     <tr>
         <th>Sl</th>
         <th>Employee</th>
-        <th>Company</th>
-        <th>Department</th>
+        <th>dasignation</th>
         <th>Leave Type</th>
         <th>Start Date</th>
         <th>End Date</th>
@@ -26,8 +25,7 @@
         <tr>
             <td>{{$loop->index+1}}</td>
             <td>{{ucwords($leave->empoloyeeName)}}</td>
-            <td>{{ucwords($leave->company)}}</td>
-            <td>{{ucwords($leave->department)}}</td>
+            <td>{{ucwords($leave->dasignation)}}</td>
             <td>{{ucwords($leave->leaveType)}}</td>
             <td>{{$leave->startDate}}</td>
             <td>{{$leave->finishDate}}</td>
