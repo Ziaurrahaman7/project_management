@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Company;
+use App\Models\Team;
 use App\Models\Leave;
+use App\Models\Company;
+use App\Models\LeaveType;
 use Illuminate\Http\Request;
+use Illuminate\Database\Query\Builder;
 
 class LeaveController extends Controller
 {
@@ -15,8 +18,8 @@ class LeaveController extends Controller
      */
     public function index()
     {
-       $leaves = Leave::all();
-       return view('leave.leave', compact('leaves'));
+        $leaves = Leave::with('team')->get();
+        return view('leave.leave', compact('leaves'));
     }
 
     /**
@@ -26,7 +29,9 @@ class LeaveController extends Controller
      */
     public function create()
     {
-        return view('leave.create');
+        $teams = Team::all();
+        $leavtypes = LeaveType::all();
+        return view('leave.create', compact('teams','leavtypes'));
     }
 
     /**
@@ -35,19 +40,29 @@ class LeaveController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Company $company)
+    public function store(Request $request)
     {
-      $attributes = request()->validate([
-        'dasignation'=>'required',
-        'empoloyeeName'=>'required',
-        'leaveType'=>'required',
-        'startDate'=>'required',
-        'finishDate'=>'required',
-        'status'=>'required',
-        'attatchment'=>'nullable',
-        'halfDay'=>'nullable',
-        'reason'=>'nullable'
-      ]);
+        // dd($request->all());
+        $attributes = $request->validate([
+            'empoloyeeID' => 'required',
+            'leaveType' => 'required',
+            'startDate' => 'required',
+            'finishDate' => 'required',
+            'status' => 'required',
+            'attatchment' => 'nullable|image',
+            'halfDay' => 'nullable',
+            'reason' => 'nullable'
+        ]);
+        // dd($attributes);
+        if($request->file('attatchment')){
+            $attributes['attatchment'] = request()->file('attatchment')->store('uploads');
+        } else {
+            $attributes['attatchment']='';
+        }
+        // $attributes['attatchment'] = request()->file('attatchment')->store('uploads');
+        // dd($attributes);
+        Leave::create($attributes);
+        return redirect('leave')->with('success', "successfully done");
     }
 
     /**
@@ -56,9 +71,11 @@ class LeaveController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Leave $leave)
     {
-        //
+        $leaves= Leave::with('team','leaveType')->where('empoloyeeID', $leave->empoloyeeID)->get();
+        // dd($leaves);
+        return view('leave.show', compact('leaves'));
     }
 
     /**
@@ -67,9 +84,12 @@ class LeaveController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Leave $leave)
     {
-        //
+        $teams = Team::all();
+        $leave = Leave::with('team')->get();
+        $leavtypes = LeaveType::all();
+        return view('leave.edit', compact('teams','leavtypes','leave'));
     }
 
     /**
