@@ -87,9 +87,8 @@ class LeaveController extends Controller
     public function edit(Leave $leave)
     {
         $teams = Team::all();
-        $leave = Leave::with('team')->get();
         $leavtypes = LeaveType::all();
-        return view('leave.edit', compact('teams','leavtypes','leave'));
+        return view('leave.edit', compact('leave','leavtypes','teams'));
     }
 
     /**
@@ -99,9 +98,26 @@ class LeaveController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Leave $leave)
     {
-        //
+        $attributes = $request->validate([
+            'empoloyeeID' => 'required',
+            'leaveType' => 'required',
+            'startDate' => 'required',
+            'finishDate' => 'required',
+            'status' => 'required',
+            'attatchment' => 'nullable|image',
+            'halfDay' => 'nullable',
+            'reason' => 'nullable'
+        ]);
+        // dd($attributes);
+        if(isset($attributes['attatchment'])){
+            $attributes['attatchment'] = request()->file('attatchment')->store('uploads');
+            }
+        // $attributes['attatchment'] = request()->file('attatchment')->store('uploads');
+        // dd($attributes);
+        $leave->update($attributes);
+        return redirect('leave')->with('success', "successfully Updated");
     }
 
     /**
@@ -110,8 +126,9 @@ class LeaveController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Leave $leave)
     {
-        //
+        $leave->delete();
+        return redirect('leave')->with('success', "successfully deleted");
     }
 }

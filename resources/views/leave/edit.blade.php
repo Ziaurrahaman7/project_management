@@ -11,9 +11,7 @@
                 <div class="form-group">
                  <select name="empoloyeeID" id="role" class="form-select">
                     @foreach($teams as $team)
-                    <?php print_r($team)?>
-                    {{-- <option value="{{$team->id}}" {{old($leave->empoloyeeID, $leave->empoloyeeID)==$team->id ." ". $team->id ? 'selected':''}}>{{ $leave->team->first_name ." ". $leave->team->last_name }}</option> --}}
-                    {{-- <option value="{{ $leave->assigned }}" {{old($leave->assigned, $leave->assigned)==$leave->assigned ? 'selected':''}}>johone1</option> --}}
+                    <option value="{{ $team->id }}" {{old($team->id, $team->id)==$leave->empoloyeeID ? 'selected':''}}>{{ $team->first_name." ".$team->last_name }}</option>
                     @endforeach
                  </select>
                 </div>
@@ -23,8 +21,7 @@
                 <div class="form-group">
                  <select name="leaveType" id="role" class="form-select">
                     @foreach($leavtypes as $leavtype)
-                    <option value="{{ $leavtype->id }}" {{old($leavtype->id, $leavtype->id)==$leave->id ? 'selected':''}}>{{ $leave->leaveType }}</option>
-                    {{-- <option value="{{ $leave->assigned }}" {{old($leave->assigned, $leave->assigned)==$leave->assigned ? 'selected':''}}>johone1</option> --}}
+                    <option value="{{ $leavtype->id }}" {{old($leavtype->id, $leavtype->id)==$leave->leaveType ? 'selected':''}}>{{ $leavtype->leaveType }}</option>
                     @endforeach
                  </select>
                 </div>
@@ -37,14 +34,16 @@
                         <label for="role">Status</label>
                         <div class="form-group">
                          <select name="status" id="role" class="form-select">
-                            <option value="active" {{old('active'== $leave->status ? 'selected':'')}}>Active</option>
-                            <option value="inactive" {{old('status'== $leave->status ? 'selected':'')}}>Inactive</option>
+                            <option value="active" {{old("active", $leave->status)==$leave->status ? 'selected':''}}>Active</option>
+                            <option value="inactive" {{old("inactive", $leave->status)==$leave->status ? 'selected':''}}>Inactive</option>
                          </select>
                         </div>
                     </div>
-            <x-form.input name="leaveValue" :value="old('leaveValue', $leave->leaveValue)"/>
-            <x-form.textarea  name="note"/>
-
+                    <div class="col-md-6  mt-3">
+                    <label id="halfday">halfDay</label>
+                    <input type="checkbox" for="halfday" name="halfDay" {{isset($leave->halfDay)?"checked":""}} value="halfDay"/>
+                    </div>
+                    <x-form.textarea  name="reason">{{old('reason',$leave->reason)}}</x-form.textarea>
         </div>
         <div class="mt-4 mb-0">
            <x-form.button>Submit</x-form.button>

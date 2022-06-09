@@ -8,6 +8,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\LeaveTypeController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\SupportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,4 +38,5 @@ Route::middleware('auth')->group(function () {
     Route::resource('leavetype', LeaveTypeController::class);
     Route::resource('leave', LeaveController::class);
     Route::resource('company', CompanyController::class);
+    Route::resource('support', SupportController::class);
 });
