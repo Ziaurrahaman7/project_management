@@ -24,4 +24,7 @@ class Team extends Model
         'password',
         'role'
     ];
+    public function task(){
+        return $this->belongsToMany(Task::class);
+    }
 }
