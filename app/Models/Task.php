@@ -8,6 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Task extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'title',
+        'startDate',
+        'endDate',
+        'project_id',
+        'client_id',
+        'summary',
+        'priority',
+        'status',
+        'description'
+    ];
     
     public function project(){
         return $this->belongsTo(Project::class, 'project_id');

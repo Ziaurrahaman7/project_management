@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Models\Team;
+use App\Models\Client;
+use App\Models\Project;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -14,9 +17,8 @@ class TaskController extends Controller
      */
     public function index()
     {
-      $tasks = Task::with('team')->get();
-    //   dd($tasks);
-      return view('task.index', compact('tasks'));
+        $tasks = Task::with('team')->get();
+        return view('task.index', compact('tasks'));
     }
 
     /**
@@ -26,7 +28,11 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
+        $projects = Project::pluck('title', 'id')->toArray();
+        $teams = Team::all();
+        //    dd($projects);
+        $clients = Client::all();
+        return view('task.create', compact('clients', 'projects', 'teams'));
     }
 
     /**
@@ -37,7 +43,21 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'title' => 'required',
+            'startDate' => 'required',
+            'endDate' => 'nullable',
+            'project_id' => 'required',
+            'client_id' => 'required',
+            'summary' => 'string|nullable',
+            'priority' => 'required',
+            'status' => 'required',
+            'description' => 'string|nullable',
+            'team_id' => 'required',
+        ]);
+        $task = Task::create($data);
+        $task->team()->attach($data['team_id']);
+        return redirect('task')->with('success', "Successfully addded");
     }
 
     /**
@@ -57,9 +77,15 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Task $task)
     {
-        //
+        $projects = Project::pluck('title', 'id')->toArray();
+        $teams = Team::all();
+
+        $selectedTeam = $task->team->pluck('id')->toArray();
+        // dd($selectedTeam);
+        $clients = Client::all();
+        return view('task.edit', compact('clients', 'projects', 'teams', 'task', 'selectedTeam'));
     }
 
     /**
@@ -69,9 +95,24 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Task $task)
     {
-        //
+        $data = $request->validate([
+            'title' => 'required',
+            'startDate' => 'required',
+            'endDate' => 'nullable',
+            'project_id' => 'required',
+            'client_id' => 'required',
+            'summary' => 'string|nullable',
+            'priority' => 'required',
+            'status' => 'required',
+            'description' => 'string|nullable',
+            'team_id' => 'required',
+        ]);
+        // dd($data);
+        $task->update($data);
+        $task->team()->sync($data['team_id']);
+        return redirect('task')->with('success', "Successfully updated");
     }
 
     /**
@@ -80,8 +121,9 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Task $task)
     {
-        //
+        $task->delete();
+        return redirect('task')->with('success', "Successfully delete");
     }
 }

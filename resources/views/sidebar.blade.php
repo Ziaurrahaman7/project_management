@@ -33,6 +33,10 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                    Lead
                 </a>
+                <a class="nav-link" href="/task">
+                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                   Task
+                </a>
                 <a class="nav-link" href="/project">
                     <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                    Project

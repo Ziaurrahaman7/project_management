@@ -20,7 +20,6 @@ return new class extends Migration
             $table->dateTime('endDate');
             $table->foreignId('project_id')->constrained('projects')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('client_id')->constrained('clients')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('companie_id')->constrained('companies')->onUpdate('cascade')->onDelete('cascade');
             $table->longText('summary');
             $table->string('priority');
             $table->string('status');

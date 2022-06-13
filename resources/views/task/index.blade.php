@@ -30,10 +30,12 @@
             <td>{{ucwords($task->client->first_name." ".$task->client->last_name)}}</td>
             <td>{{$task->priority}}</td>
             <td>{{$task->summary}}</td>
-            @foreach ($task->team as $team)
-            <td>{{$team->pivot->team_id}}</td>  
-            @endforeach
            
+            <td>
+            @foreach ($task->team as $team)
+            <img style="width:20px;height:20px;border-radius:50%" src="{{$team->image}}" alt="{{$team->first_name}}">
+            @endforeach
+            </td> 
             <td>{{$task->status}}</td>
             <td> <a href="/task/{{$task->id}}/edit/" target="_blank" rel="noopener noreferrer">Edit</a> |   
             <form action="/task/{{$task->id}}" method="post">
